@@ -27,6 +27,24 @@ def allowed_file(filename):
 
 # -------------------- DATABASE --------------------
 DATABASE = os.path.join(os.path.dirname(__file__), "users.db")
+def init_users_table():
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL
+        )
+    """)
+    conn.commit()
+    conn.close()
+create_maintenance_table()
+create_contact_table()
+init_users_table()
+
+
+
 
 
 def get_db_connection():
