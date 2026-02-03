@@ -41,7 +41,11 @@ def init_users_table():
     conn.close()
 create_maintenance_table()
 create_contact_table()
-init_users_table()
+
+@app.before_first_request
+def initialize_database():
+    init_users_table()
+
 
 
 
