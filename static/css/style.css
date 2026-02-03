@@ -15,15 +15,11 @@ body {
 .hero {
   background: url("../images/background.jpg") no-repeat center center;
   background-size: cover;
+  min-height: 100vh;
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 120px 50px 60px;
-  color: white;
-  min-height: 100vh;   /* 🔴 ye line add karo */
+  /* overflow: hidden;  <-- ye line NAHI honi chahiye */
 }
+
 
 
 .hero::before {
@@ -381,17 +377,13 @@ footer {
 
 
 .hero-wave {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  margin-top: -100px;   /* curve ko hero ke niche chipkane ke liye */
 }
 
 
 .hero-wave svg {
-  position: relative;
   display: block;
-  width: calc(100% + 1.3px);
+  width: 100%;
   height: 100px;
 }
 .events {
