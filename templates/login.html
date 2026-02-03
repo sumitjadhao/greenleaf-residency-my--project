@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center" style="background: linear-gradient(135deg, #00c9ff, #92fe9d, #ff00c8);">
+
+  <div class="bg-white bg-opacity-90 backdrop-blur-sm rounded-2xl shadow-2xl p-12 w-full max-w-xl text-center">
+    <h2 class="text-4xl font-extrabold mb-8 text-gray-800">Login to GreenLeaf</h2>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-6">
+          {% for category, message in messages %}
+            <div class="text-white px-4 py-2 rounded {{ 'bg-green-500' if category=='success' else 'bg-red-500' }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Flask form integration -->
+    <form class="space-y-6" method="POST" action="/login">
+      <!-- Username -->
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M5.121 17.804A7 7 0 0112 15a7 7 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </span>
+        <input id="username" name="username" type="text" placeholder="Type your username"
+          class="w-full py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400" required />
+      </div>
+
+      <!-- Password -->
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 11c1.104 0 2-.896 2-2V7a2 2 0 00-4 0v2c0 1.104.896 2 2 2zm-6 4h12a2 2 0 012 2v1H4v-1a2 2 0 012-2z" />
+          </svg>
+        </span>
+        <input id="password" name="password" type="password" placeholder="Type your password"
+          class="w-full py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400" required />
+        <div class="text-right mt-2 text-base">
+          <a href="#" class="text-gray-500 hover:text-purple-600">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Login Button -->
+      <button type="submit"
+        class="w-full text-xl bg-gradient-to-r from-teal-400 via-blue-500 to-fuchsia-500 text-white py-3 rounded-full font-bold hover:opacity-90 transition duration-300">
+        LOGIN
+      </button>
+    </form>
+
+    <!-- Signup Option -->
+    <p class="mt-8 text-gray-700 text-base">Or Sign Up Using</p>
+  </div>
+
+</body>
+</html>

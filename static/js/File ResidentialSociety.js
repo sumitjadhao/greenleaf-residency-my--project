@@ -1,0 +1,100 @@
+// File: ResidentialSociety.jsx
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+
+export default function ResidentialSociety() {
+  return (
+    <div className="bg-gray-50 text-gray-800 font-sans">
+      {/* Hero Section */}
+      <div className="bg-[url('/society.jpg')] bg-cover bg-center h-[80vh] flex items-center justify-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 1 }}
+          className="text-center bg-white/70 p-8 rounded-2xl shadow-xl"
+        >
+          <h1 className="text-4xl font-bold text-blue-800">GreenLeaf Residency</h1>
+          <p className="mt-4 text-lg">A peaceful and modern living experience</p>
+        </motion.div>
+      </div>
+
+      {/* About Section */}
+      <section className="py-16 px-8 max-w-5xl mx-auto">
+        <motion.div 
+          initial={{ x: -100, opacity: 0 }} 
+          whileInView={{ x: 0, opacity: 1 }} 
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-3xl font-semibold mb-4">About Us</h2>
+          <p className="text-lg text-gray-700">
+            GreenLeaf Residency is a premium gated society located in the heart of the city with state-of-the-art infrastructure, greenery, and security. We offer modern amenities and a serene environment.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* Amenities */}
+      <section className="bg-white py-16">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold">Our Amenities</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-8 max-w-6xl mx-auto">
+          {["Swimming Pool", "Children’s Park", "Gym", "24x7 Security", "Clubhouse", "Jogging Track"].map((item, i) => (
+            <motion.div 
+              key={i}
+              whileHover={{ scale: 1.05 }}
+              className="bg-blue-100 rounded-2xl p-6 shadow-md"
+            >
+              <h3 className="text-xl font-semibold text-blue-700">{item}</h3>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="py-16 bg-gray-100">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold">Gallery</h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-8 max-w-6xl mx-auto">
+          {[1, 2, 3, 4, 5, 6].map((num) => (
+            <motion.img
+              whileHover={{ scale: 1.1 }}
+              key={num}
+              src={`/images/gallery${num}.jpg`}
+              alt={`Gallery ${num}`}
+              className="rounded-xl shadow-lg w-full h-60 object-cover"
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-16 px-8 bg-white max-w-4xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          whileInView={{ opacity: 1 }} 
+          transition={{ duration: 1 }}
+          className="space-y-6"
+        >
+          <h2 className="text-3xl font-bold text-center">Get in Touch</h2>
+          <form 
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            action="http://127.0.0.1:5000/contact"
+            method="POST"
+          >
+            <input type="text" name="name" placeholder="Name" className="p-3 border rounded-xl" required />
+            <input type="email" name="email" placeholder="Email" className="p-3 border rounded-xl" required />
+            <input type="text" name="phone" placeholder="Phone" className="p-3 border rounded-xl md:col-span-2" />
+            <textarea name="message" placeholder="Your Message" className="p-3 border rounded-xl md:col-span-2" rows="4" required />
+            <Button type="submit" className="md:col-span-2 bg-blue-700 hover:bg-blue-900">Send Message</Button>
+          </form>
+        </motion.div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-blue-900 text-white py-6 text-center">
+        <p>&copy; 2025 GreenLeaf Residency. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}
