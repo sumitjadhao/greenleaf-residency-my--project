@@ -98,11 +98,14 @@ def init_users_table():
     conn.commit()
     conn.close()
 
-@app.before_first_request
-def initialize_database():
-    create_maintenance_table()
-    create_contact_table()
-    init_users_table()
+@app.before_request
+def initialize_database_once():
+    global db_initialized
+    if not db_initialized:
+        create_maintenance_table()
+        create_contact_table()
+        init_users_table()
+        db_initialized = True
 
 
 
