@@ -10,6 +10,9 @@ import time
 import threading
 from datetime import datetime
 
+db_initialized = False
+
+
 
 
 # -------------------- CONFIG --------------------
