@@ -312,20 +312,20 @@ def contact():
     conn.close()
 
     # 2️⃣ Admin ko email send
-    send_contact_email(name, email, phone, message)
+    #send_contact_email(name, email, phone, message)
 
     flash("Message sent successfully to admin ✅", "success")
     return redirect(url_for("home"))
 
 # ⏰ TEMPORARY TEST: every 1 minute
-schedule.every().days.at("00:00").do(daily_maintenance_job)
+"""schedule.every().days.at("00:00").do(daily_maintenance_job)
 
 def run_scheduler():
     while True:
         schedule.run_pending()
         time.sleep(60)
 
-threading.Thread(target=run_scheduler, daemon=True).start()
+threading.Thread(target=run_scheduler, daemon=True).start() """
 
 
 
