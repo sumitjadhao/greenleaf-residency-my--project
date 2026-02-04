@@ -325,7 +325,8 @@ def contact():
     return redirect(url_for("home"))
 
 # ⏰ TEMPORARY TEST: every 1 minute
-schedule.every().days.at("00:00").do(daily_maintenance_job)
+schedule.every().days.at("09:20").do(daily_maintenance_job)
+
 
 def run_scheduler():
     while True:
