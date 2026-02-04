@@ -17,8 +17,7 @@ db_initialized = False
 
 # -------------------- CONFIG --------------------
 app = Flask(__name__)
-app.secret_key = "supersecretkey"
-
+app.secret_key = os.environ.get("SECRET_KEY", "greenleaf-very-strong-secret-123")
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
