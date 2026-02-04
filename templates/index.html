@@ -1,263 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenLeaf Residency</title>
-  
-  <!-- CSS from Flask static folder -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Optional JS (if any) -->
-  <script src="{{ url_for('static', filename='js/residentialcociet.js') }}" defer></script>
+    <meta charset="UTF-8">
+    <title>Google Sheet Search</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        .search-box {
+            margin: 20px auto;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 16px;
+            margin-left: 5px;
+            border: none;
+            background: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 30px auto;
+            width: 90%;
+            background: #fff;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+        .no-result {
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
-
-
 <body>
+    <h2>🔎 Search Google Sheet Data</h2>
 
-  <!-- Navigation Title Bar -->
-  <nav class="top-navbar">
-    <div class="nav-content">
-      <ul class="nav-menu">
-        <li id="toggle-event-btn">Event Images OR Videos</li>
-        <li><a href="{{ url_for('maintenance') }}">Society Maintenance</a></li>
+    <form action="/search" method="POST" class="search-box">
+        <input type="text" name="query" placeholder="Enter name" required>
+        <button type="submit">Search</button>
+    </form>
 
-
-       <li><a href="{{ url_for('maintenance_history') }}">Maintenance History</a></li>
-
-      </ul>
-      <!-- Login Flask route se open hoga -->
-      <a href="{{ url_for('login') }}">
-        <button class="login-btn">Login</button>
-      </a>
-    </div>
-  </nav>
-
-  <!-- Event Section -->
-  <section id="event-section" class="events hidden">
-    <h2>Society Event Gallery</h2>
-    <div class="event-gallery">
-
-      <div class="event-item" style="--delay: 0.1s">
-        <img src="{{ url_for('static', filename='images/events/event1.jpg') }}" alt="Event 1">
-        <a href="{{ url_for('static', filename='images/events/event1.jpg') }}" class="download-btn-overlay" download>
-          <i class="fa-solid fa-download"></i>
-        </a>
-      </div>
-
-      <div class="event-item" style="--delay: 0.2s">
-        <img src="{{ url_for('static', filename='images/events/event2.jpg') }}" alt="Event 2">
-        <a href="{{ url_for('static', filename='images/events/event2.jpg') }}" class="download-btn-overlay" download>
-          <i class="fa-solid fa-download"></i>
-        </a>
-      </div>
-
-      <div class="event-item" style="--delay: 0.3s">
-        <img src="{{ url_for('static', filename='images/events/event3.jpg') }}" alt="Event 3">
-        <a href="{{ url_for('static', filename='images/events/event3.jpg') }}" class="download-btn-overlay" download>
-          <i class="fa-solid fa-download"></i>
-        </a>
-      </div>
-       <div class="event-item" style="--delay: 0.3s">
-        <img src="{{ url_for('static', filename='images/events/event4.jpg') }}" alt="Event 4">
-        <a href="{{ url_for('static', filename='images/events/event4.jpg') }}" class="download-btn-overlay" download>
-          <i class="fa-solid fa-download"></i>
-        </a>
-      </div>
-      <div class="event-item" style="--delay: 0.3s">
-        <img src="{{ url_for('static', filename='images/events/event5.jpg') }}" alt="Event 5">
-        <a href="{{ url_for('static', filename='images/events/event5 .jpg') }}" class="download-btn-overlay" download>
-          <i class="fa-solid fa-download"></i>
-        </a>
-      </div>
-     
-
-      <div class="event-item" style="--delay: 0.4s">
-        <video controls>
-          <source src="{{ url_for('static', filename='videos/event1.mp4') }}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <a href="{{ url_for('static', filename='videos/event1.mp4') }}" class="download-btn-overlay" download>
-          <i class="fa-solid fa-download"></i>
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-left">
-      <h1>GREENLEAF RESIDENCY</h1>
-      <div class="subtitle">Experience premium living in nature’s lap.</div>
-      <div class="about-inside-hero">
-        <h2>About Us</h2>
-        <p>Welcome to GreenLeaf Residency — where luxury meets nature. Our modern residential community offers top-class amenities surrounded by lush greenery.</p>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <div class="hero-gallery">
-         <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Gallery Image 1">
-  <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Gallery Image 2">
-  <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Gallery Image 3">
-  <img src="{{ url_for('static', filename='images/gallery4.jpg') }}" alt="Gallery Image 4">
-    </div>
-
-    <!-- Wave SVG -->
-    <div class="hero-wave">
-      <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-        <path d="M0,160 C320,240 640,80 960,160 C1280,240 1440,160 1440,160 L1440,320 L0,320 Z" fill="#000000"></path>
-      </svg>
-    </div>
-  </section>
-
-  <!-- Black Background Wrapper -->
-  <div class="black-hero-bg">
-
-    <!-- Amenities Section -->
-    <section class="amenities">
-      <h2>Amenities</h2>
-      <div class="cards">
-
-        <div class="card-group">
-          <div class="card" onclick="showAmenity('swimming')">
-            <img src="{{ url_for('static', filename='images/icons/swimming.png') }}" class="amenity-icon" alt="Swimming">
-          </div>
-          <div class="amenity-image-box" id="swimmingImageBox">
-            <img id="swimmingImage" src="" alt="Swimming Pool">
-          </div>
-        </div>
-
-        <div class="card-group">
-          <div class="card" onclick="showAmenity('gym')">
-            <img src="{{ url_for('static', filename='images/icons/gym.png') }}" class="amenity-icon" alt="Gym">
-          </div>
-          <div class="amenity-image-box" id="gymImageBox">
-            <img id="gymImage" src="" alt="Gym">
-          </div>
-        </div>
-
-        <div class="card-group">
-          <div class="card" onclick="showAmenity('play')">
-            <img src="{{ url_for('static', filename='images/icons/play.png') }}" class="amenity-icon" alt="Play Area">
-          </div>
-          <div class="amenity-image-box" id="playImageBox">
-            <img id="playImage" src="" alt="Play Area">
-          </div>
-        </div>
-
-        <div class="card-group">
-          <div class="card" onclick="showAmenity('garden')">
-            <img src="{{ url_for('static', filename='images/icons/garden.png') }}" class="amenity-icon" alt="Garden">
-          </div>
-          <div class="amenity-image-box" id="gardenImageBox">
-            <img id="gardenImage" src="" alt="Garden">
-          </div>
-        </div>
-
-        <div class="card-group">
-          <div class="card" onclick="showAmenity('security')">
-            <img src="{{ url_for('static', filename='images/icons/security.png') }}" class="amenity-icon" alt="Security">
-          </div>
-          <div class="amenity-image-box" id="securityImageBox">
-            <img id="securityImage" src="" alt="Security">
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact">
-      <h2>Contact Us</h2>
-      <form action="{{ url_for('contact') }}" method="POST">
-  <input type="text" name="name" placeholder="Your Name" required />
-  <input type="email" name="email" placeholder="Email Address" required />
-  <input type="text" name="phone" placeholder="Phone (optional)" />
-  <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
-  <button type="submit">Send Message</button>
-</form>
-
-    </section>
-
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 GreenLeaf Residency. All rights reserved.
-  </footer>
-
-  <!-- JS for Amenities -->
-  <script>
-    function showAmenity(type) {
-      const boxes = document.querySelectorAll('.amenity-image-box');
-      boxes.forEach(box => {
-        box.classList.remove("show");
-        box.style.display = "none";
-      });
-
-      let boxId = "", imgId = "", imgPath = "";
-
-      switch (type) {
-        case 'swimming':
-          boxId = "swimmingImageBox";
-          imgId = "swimmingImage";
-          imgPath = "{{ url_for('static', filename='images/swimming.jpg') }}";
-          break;
-        case 'gym':
-          boxId = "gymImageBox";
-          imgId = "gymImage";
-          imgPath = "{{ url_for('static', filename='images/gym.jpg') }}";
-          break;
-        case 'play':
-          boxId = "playImageBox";
-          imgId = "playImage";
-          imgPath = "{{ url_for('static', filename='images/play.jpg') }}";
-          break;
-        case 'garden':
-          boxId = "gardenImageBox";
-          imgId = "gardenImage";
-          imgPath = "{{ url_for('static', filename='images/garden.jpg') }}";
-          break;
-        case 'security':
-          boxId = "securityImageBox";
-          imgId = "securityImage";
-          imgPath = "{{ url_for('static', filename='images/security.jpg') }}";
-          break;
-      }
-
-      const box = document.getElementById(boxId);
-      const image = document.getElementById(imgId);
-      image.src = imgPath;
-
-      box.style.display = "block";
-
-      setTimeout(() => {
-        box.classList.add("show");
-      }, 10);
-    }
-  </script>
-
-  <script>
-    const toggleBtn = document.getElementById("toggle-event-btn");
-    const eventSection = document.getElementById("event-section");
-
-    document.addEventListener("click", function(e) {
-      if (e.target === toggleBtn) {
-        eventSection.classList.toggle("hidden");
-      }
-      else if (!eventSection.contains(e.target)) {
-        eventSection.classList.add("hidden");
-      }
-    });
-  </script>
-
+    {% if results %}
+        <h3>✅ Search Results:</h3>
+        <table>
+            <tr>
+                {% for key in results[0].keys() %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+            {% for row in results %}
+                <tr>
+                    {% for value in row.values() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% elif query %}
+        <p class="no-result">⚠️ No matching records found.</p>
+    {% endif %}
 </body>
 </html>
