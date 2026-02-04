@@ -40,10 +40,16 @@ def get_db_connection():
 def check_user_db(username, password):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
+
+    cursor.execute(
+        "SELECT * FROM users WHERE LOWER(username)=LOWER(?) AND password=?",
+        (username.strip(), password.strip())
+    )
+
     user = cursor.fetchone()
     conn.close()
     return user
+
 
 # Ensure maintenance_history table exists
 def create_maintenance_table():
@@ -198,8 +204,9 @@ def login():
             return redirect(url_for("home"))
 
         # Database login
-        elif check_user_db(username, password):
-            session["user"] = username
+        user = check_user_db(username, password)
+        if user:
+            session["user"] = user["username"]
             flash("Login Successful ✅", "success")
             return redirect(url_for("home"))
 
