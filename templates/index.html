@@ -178,10 +178,19 @@
     <!-- Contact Section -->
     <section class="contact">
       <h2>Contact Us</h2>
-      <form action="{{ url_for('contact') }}" method="POST">
-  <input type="text" name="name" placeholder="Your Name" required />
-  <input type="email" name="email" placeholder="Email Address" required />
-  <input type="text" name="phone" placeholder="Phone (optional)" />
+      <form action="{{ url_for('contact') }}" method="POST" >
+  <input type="text" name="name" placeholder="Your Name" required 
+  oninvalid="this.setCustomValidity('Please enter your full name')"
+   oninput="this.setCustomValidity('')" />
+  <input type="email" name="email" placeholder="Email Address" required 
+  oninvalid="this.setCustomValidity('Please enter a valid email address')"
+   oninput="this.setCustomValidity('')" />
+  <input type="text" name="phone" placeholder="Phone (optional)" 
+  oninvalid="this.setCustomValidity('Please enter a valid phone number')"
+   oninput="this.setCustomValidity('')" />
+   <input type="text" name="subject" placeholder="Subject" required
+  oninvalid="this.setCustomValidity('Please enter a subject')"
+   oninput="this.setCustomValidity('')" />
   <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
   <button type="submit">Send Message</button>
 </form>

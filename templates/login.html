@@ -36,6 +36,9 @@
           </svg>
         </span>
         <input id="username" name="username" type="text" placeholder="Type your username"
+        required
+         oninvalid="this.setCustomValidity('Please enter your username')"
+        oninput="this.setCustomValidity('')"
           class="w-full py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400" required />
       </div>
 
@@ -49,6 +52,9 @@
           </svg>
         </span>
         <input id="password" name="password" type="password" placeholder="Type your password"
+          required
+            oninvalid="this.setCustomValidity('Please enter your password')"
+            oninput="this.setCustomValidity('')"
           class="w-full py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400" required />
         <div class="text-right mt-2 text-base">
           <a href="#" class="text-gray-500 hover:text-purple-600">Forgot password?</a>

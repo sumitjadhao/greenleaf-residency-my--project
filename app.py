@@ -17,6 +17,11 @@ db_initialized = False
 
 # -------------------- CONFIG --------------------
 app = Flask(__name__)
+app.config.update(
+    SESSION_COOKIE_SAMESITE="Lax",
+    SESSION_COOKIE_SECURE=False   # HTTP ke liye
+)
+
 app.secret_key = os.environ.get("SECRET_KEY", "greenleaf-very-strong-secret-123")
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -199,14 +204,12 @@ def login():
         # Static admin login
         if username == "admin" and password == "1234":
             session["user"] = "admin"
-            flash("Admin Login Successful ✅", "success")
             return redirect(url_for("home"))
 
         # Database login
         user = check_user_db(username, password)
         if user:
             session["user"] = user["username"]
-            flash("Login Successful ✅", "success")
             return redirect(url_for("home"))
 
         else:

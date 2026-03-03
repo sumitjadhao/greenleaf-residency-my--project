@@ -98,3 +98,40 @@ export default function ResidentialSociety() {
     </div>
   );
 }
+<script>
+document.querySelector("form").addEventListener("submit", function(e) {
+
+  let fullName = document.querySelector("[name='full_name']");
+  let room = document.querySelector("[name='room_number']");
+  let amount = document.querySelector("[name='amount']");
+  let file = document.querySelector("[name='screenshot']");
+
+  if(fullName.value.trim() === ""){
+    alert("Please enter your full name");
+    fullName.focus();
+    e.preventDefault();
+    return;
+  }
+
+  if(room.value.trim() === ""){
+    alert("Please enter your room number (Example: A-101)");
+    room.focus();
+    e.preventDefault();
+    return;
+  }
+
+  if(amount.value.trim() === ""){
+    alert("Please enter maintenance amount");
+    amount.focus();
+    e.preventDefault();
+    return;
+  }
+
+  if(file.files.length === 0){
+    alert("Please upload payment screenshot");
+    e.preventDefault();
+    return;
+  }
+
+});
+</script>
